@@ -5,6 +5,18 @@ class SplashElement extends PolymerElement {
   static get template () {
     return html`
       <style>
+        #landing {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 50vh;
+            left: 50vw;                                                             
+            background: #000;
+            color: #FFF;
+            opacity: 1;
+            justify-content: space-around;
+            transform: translate(-50%,-50%);
+        }
         #welcome {
             display: flex;
             flex-direction: row;
@@ -16,10 +28,16 @@ class SplashElement extends PolymerElement {
             font-family: "Times New Roman", serif;
             font-size: 25vw;
         }
-        .clickToOpen {text-align: center;}
-        #welcome.clicked span {transition: .75s ease-in-out;}
+        #click-anywhere {
+			text-align: center;
+			transition: opacity .25s ease-out;
+		}
+		#click-anywhere.active {
+			opacity: 0;
+		}
+        #welcome.clicked span {transition: .75s cubic-bezier(1, 0, 0.6, 1);}
         #welcome.clicked span.left {transform: translateX(-100vw);}
-        #welcome.clicked span.right {transform: translateX(100vw);}
+		#welcome.clicked span.right {transform: translateX(100vw);}
       </style>
 
       <aside id="landing" on-click="open">
@@ -27,7 +45,7 @@ class SplashElement extends PolymerElement {
           <span class="left">[An</span>
           <span class="right">da]</span>
         </div>
-        <a class="clickToOpen">Click anywhere</a>
+        <a id="click-anywhere">Click anywhere</a>
       </aside>
     `;
   }
@@ -43,6 +61,7 @@ class SplashElement extends PolymerElement {
 
   open() {
     this.root.getElementById('welcome').classList.add('clicked')
+    this.root.getElementById('click-anywhere').classList.add('active')
   }
 }  
 

@@ -4,6 +4,16 @@ import '@polymer/polymer/lib/elements/dom-if.js';
 class MainPage extends PolymerElement {
   static get template () {
     return html`
+    <style>
+        #site {
+            display: none;
+        }
+        #site.open {
+            display: initial;
+            background: white;
+            color: black;
+        }
+    </style>
         <h1 id="title" class="hidden">Axel Fiolle</h1>
         <main id="site">
             <nav id="accessibility" class="hidden">

@@ -7,21 +7,9 @@ import './pages/main.js';
 class AndarothWebsite extends PolymerElement {
   static get template () {
     return html`
-      <style>
-        h1 {
-          cursor: pointer;
-        }
-        div.status {
-          color: red;
-        }
-        div.status.is-open-true {
-          color: green;
-        }
-      </style>
+		<splash-element></splash-element>
 
-      <splash-element></splash-element>
-
-      <main-page is-loaded="[[loadComplete]]"></main-page>
+    	<main-page is-loaded="[[loadComplete]]"></main-page>
     `;
   }
   
