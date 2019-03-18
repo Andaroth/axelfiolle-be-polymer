@@ -5,34 +5,34 @@ import './elements/splash.js';
 import './pages/main.js';
 
 class AndarothWebsite extends PolymerElement {
-  static get template () {
-    return html`
-		<splash-element></splash-element>
+	static get template () {
+		return html`
+			<splash-element on-click="open"></splash-element>
 
-    	<main-page is-loaded="[[loadComplete]]"></main-page>
-    `;
-  }
+			<main-page show-website="[[showWebsite]]"></main-page>
+		`;
+	}
   
-  static get properties () {
-    return {
-      loadComplete: {
-        type: Boolean,
-        value: false
-      }
-    };
-  }
+	static get properties () {
+    	return {
+			showWebsite: {
+				type: Boolean,
+				value: false
+      		}
+    	};
+	}
 
-  constructor() {
-    super();
-  }
+	constructor() {
+		super();
+	}
 
-  ready(){
-    super.ready();
-  }
+	ready(){
+		super.ready();
+	}
 
-  open() {
-    this.set('loadComplete',true)
-  }
+	open() {
+		this.set('showWebsite',true)
+	}
 }  
 
 // Register the element with the browser.
