@@ -1,27 +1,58 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Web developer since 2005">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="theme-color" content="#000">
-  <link rel="icon" href="manifest/favicon.ico">
-  <link rel="manifest" href="manifest.json">
-  <link rel="canonical" href="https://start-polymer3.firebaseapp.com/" />
-  <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" async></script>
-  <script src="./src/start-polymer3.js" type="module" async></script>
-  <title>Andaroth</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Web developer since 2005">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#000">
+	<link rel="icon" href="manifest/favicon.ico">
+	<link rel="manifest" href="manifest.json">
+	<link rel="canonical" href="https://start-polymer3.firebaseapp.com/" />
+	<script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" async></script>
+	<script src="./src/start-polymer3.js" type="module" async></script>
+	<title>Andaroth</title>
 </head>
 <body>
-  <style>
-    body {
-      background: black;
-      color: white;
-    }
-  </style>
-  <andaroth-website>
-    <h1>Loading ...</h1>
-  </andaroth-website>
+	<style>
+		body {
+			background: black;
+			color: white;
+		}
+		#landing {
+			display: flex;
+			flex-direction: column;
+			position: fixed;
+			top: 50vh;
+			left: 50vw;                                                             
+			background: #000;
+			color: #FFF;
+			opacity: 1;
+			justify-content: space-around;
+			transform: translate(-50%,-50%);
+		}
+		#welcome {
+			display: flex;
+			flex-direction: row;
+			margin: 0 auto;
+			cursor: pointer;
+			
+			text-align: center;
+			font-family: "Times New Roman", serif;
+			font-size: 25vw;
+		}
+		#click-anywhere {
+			text-align: center;
+		}
+	</style>
+	<andaroth-website>
+		<aside id="landing" class$="nopacity-[[loadComplete]]" on-click="open">
+			<div id="welcome" class$="clicked-[[loadComplete]]">
+				<span class="left">[An</span>
+				<span class="right">da]</span>
+			</div>
+			<span id="click-anywhere" class$="nopacity-[[loadComplete]]">Loading ...</span>
+		</aside>
+	</andaroth-website>
 </body>
 </html>
