@@ -5,13 +5,12 @@ class SplashElement extends PolymerElement {
   static get template () {
     return html`
       <style>
-        #landing {
+        #splash {
             display: flex;
             flex-direction: column;
             position: fixed;
             top: 50vh;
-            left: 50vw;                                                             
-            background: #000;
+            left: 50vw;
             color: #FFF;
             opacity: 1;
             justify-content: space-around;
@@ -41,7 +40,7 @@ class SplashElement extends PolymerElement {
 		#click-anywhere.nopacity-true {opacity: 0;}
       </style>
 
-      <aside id="landing" class$="nopacity-[[loadComplete]]" on-click="open">
+      <aside id="splash" class$="nopacity-[[loadComplete]]" on-click="open">
         <div id="welcome" class$="clicked-[[loadComplete]]">
           <span class="left">[An</span>
           <span class="right">da]</span>
@@ -62,6 +61,7 @@ class SplashElement extends PolymerElement {
 
 	open() {
 		this.set('loadComplete',true)
+		this.dispatchEvent(new CustomEvent('splash-skip',{detail:{},bubbles:true,composed:true}))
 	}
 }
 

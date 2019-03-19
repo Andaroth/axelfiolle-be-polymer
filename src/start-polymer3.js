@@ -7,7 +7,7 @@ import './pages/main.js';
 class AndarothWebsite extends PolymerElement {
 	static get template () {
 		return html`
-			<splash-element on-click="open"></splash-element>
+			<splash-element on-splash-skip="open"></splash-element>
 
 			<main-page show-website="[[showWebsite]]"></main-page>
 		`;
@@ -31,6 +31,7 @@ class AndarothWebsite extends PolymerElement {
 	}
 
 	open() {
+		console.log('splash-skip')
 		this.set('showWebsite',true)
 	}
 }  

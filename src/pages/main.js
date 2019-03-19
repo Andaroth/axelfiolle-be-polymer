@@ -1,6 +1,8 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/polymer/lib/elements/dom-if.js';
 
+import '../elements/home.js';
+
 class MainPage extends PolymerElement {
     static get template () {
         return html`
@@ -14,9 +16,8 @@ class MainPage extends PolymerElement {
             </style>
             <main id="site" class$="show-website-[[showWebsite]]">
                 <h1 id="title" class="hidden">Axel Fiolle</h1>
-                <section id="home">
-                    <div class="discover"><span id="jsFill"></span><h2 id="jobs">FrontEnd-Dev</h2></div>
-                </section>
+                
+                <home-element active="[[showWebsite]]"></home-element>
 
                 <section id="about">
                     <h2>About</h2>
@@ -81,11 +82,11 @@ class MainPage extends PolymerElement {
     ready() {
         super.ready();
 
-        this.dispatchEvent(new CustomEvent('website-ready',{detail:{},bubble:true,composed:true}))
+        
     }
 
     display(showWebsite) {
-        this.set('showWebsite',showWebsite)
+        // this.set('showWebsite',showWebsite)
     }
   }  
   
