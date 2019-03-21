@@ -5,36 +5,35 @@ class LandingElement extends PolymerElement {
     static get template () {
         return html`
             <style>
-                #home {
+                .landing {
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-end;
-                    background-image: url('./res/img/parking.jpg');
+                    background: url('./res/img/parking.jpg') center no-repeat;
                     background-size: cover;
-                    background-position: center;
                     height: 100vh;
                     opacity: 0;
                     transition: opacity 1s ease;
                 }
-                #home.active-true {
+                .landing.active-true {
                     opacity: 1;
                 }
-                #home .discover {
+
+                h2 {
+                    margin: 0 0 10vh 0;
+                    width:auto;
+                    cursor: pointer;
+
                     color: #FFF;
                     text-align: center;
                     font-size: 2em;
-                    margin-bottom: 10vh;
                 }
-                #jobs {
-                    margin: 0;
-                    width:auto;
-                    cursor: pointer;
-                }
-                #jobs:before {content: "<";}
-                #jobs:after {content: "/>";}
+                h2:before {content: "<";}
+                h2:after {content: "/>";}
             </style>
-            <section id="home" class$="active-[[startedUp]]">
-                <div class="discover"><h2 id="jobs">[[shownSkill]]</h2></div>
+
+            <section class$="landing active-[[startedUp]]">
+                <h2 on-click="_goToAnchor">[[shownSkill]]</h2>
             </section>
         `;
     }
@@ -48,6 +47,10 @@ class LandingElement extends PolymerElement {
             shownSkill: {
                 type: String,
                 value: 'FrontEnd-Dev'
+            },
+            skillIndex: {
+                type: Number,
+                value: 0
             },
             skills: {
                 type: Object,
@@ -70,11 +73,6 @@ class LandingElement extends PolymerElement {
         return ['start(startedUp)']
     }
 
-    ready() {
-        super.ready()
-        this.dispatchEvent(new CustomEvent('ready',{detail:{done:true},bubbles:true,composed:true}))
-    }
-
     _skillsInterval() {
         if (this.startedUp) {
             let index = 0
@@ -82,13 +80,22 @@ class LandingElement extends PolymerElement {
                 if (this.startedUp && index < Object.keys(this.skills).length-1) index++
                 else index = 0
                 this.set('shownSkill',this.skills[index].label)
+                this.set('skillIndex',index)
             },2500)
         }
     }
 
-    start() {
-        this._skillsInterval()
+    start(startedUp) {
+        if (startedUp) {
+            this._skillsInterval()
+            this.dispatchEvent(new CustomEvent('ready',{detail:{done:true},bubbles:true,composed:true}))
+        }
     }
+
+    _goToAnchor() {
+        this.dispatchEvent(new CustomEvent('router-call',{detail:{anchor:this.skills[this.skillIndex].anchor},bubbles:true,composed:true}))
+    }
+
   }  
   
   customElements.define('landing-element', LandingElement);

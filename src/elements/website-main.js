@@ -15,7 +15,11 @@ class WebsiteMain extends PolymerElement {
             <main id="site" class$="show-website-[[active]]">
                 <h1 id="title" class="hidden">Axel Fiolle</h1>
                 
-                <landing-element started-up="[[active]]" on-ready="_elementIsReady"></landing-element>
+                <landing-element 
+                    started-up="[[active]]" 
+                    on-ready="_elementIsReady"
+                    on-router-call="doRoute"
+                ></landing-element>
 
                 <section id="about">
                     <h2>About</h2>
@@ -87,7 +91,11 @@ class WebsiteMain extends PolymerElement {
     }
 
     static get observers () {
-        return ['display(active)','_loadedComplete(siteLoaded)','_isLoadedComplete(componentsLoaded)']
+        return [
+            'display(active)',
+            '_isLoadedComplete(componentsLoaded)',
+            '_loadedComplete(siteLoaded)'
+        ]
     }
 
     display(active) {
@@ -95,8 +103,11 @@ class WebsiteMain extends PolymerElement {
     }
 
     _elementIsReady(e) {
-        if (e && e.target && e.target.localName && e.detail && e.detail.done) this.push('componentsLoaded',e.target.localName)
-        else console.log('e is not done or undefined')
+        if (e && e.target && e.target.localName && e.detail && e.detail.done) {
+            this.push('componentsLoaded',e.target.localName)
+            // console.log('ready : ',e.target.localName)
+        }
+        // else console.log('e is not done or undefined')
     }
 
     _isLoadedComplete() {
@@ -108,10 +119,22 @@ class WebsiteMain extends PolymerElement {
         if (siteLoaded) this.dispatchEvent(new CustomEvent('loaded',{detail:{},bubbles:true,composed:true}))
     }
 
+    doRoute(e) {
+        if (!(e && e.detail)) return
+
+        const page = e.detail.page || false
+        const anchor = e.detail.anchor || false
+
+        if (page && !anchor) return // TODO this.goTo(this.root.getElementById(page)) 
+        else if (anchor && !page) return // TODO this.scrollTo(this.root.getElementById(anchor)) 
+        else if (page && anchor) return // TODO
+        else return
+    }
+
     equalArrays(a,b) {
         if (Array.isArray(a) && Array.isArray(b)) { // both MUST be arrays
             a.map(line=>{ // for each line of a
-                if (!b.indexOf(line)) return false // false if not in b
+                if (b.indexOf(line) == -1) return false // false if not in b
             })
             return a.length == b.length // if none of a absent of b, check lengths
         } else return false

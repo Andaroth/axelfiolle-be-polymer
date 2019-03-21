@@ -5,7 +5,7 @@ class WelcomeScreen extends PolymerElement {
 	static get template () {
 		return html`
 			<style>
-				#splash {
+				.splash {
                     display: flex;
                     flex-direction: column;
                     position: fixed;
@@ -18,7 +18,7 @@ class WelcomeScreen extends PolymerElement {
 					transition: opacity .7s ease-out;
                 }
                 
-				#welcome {
+				.welcome {
                     display: flex;
                     flex-direction: row;
                     margin: 0 auto;
@@ -28,28 +28,27 @@ class WelcomeScreen extends PolymerElement {
                     font-family: "Times New Roman", serif;
                     font-size: 25vw;
                 }
+                .welcome.clicked-true span {transition: .75s cubic-bezier(1, 0, 0.6, 1);}
+                .welcome.clicked-true span.left {transform: translateX(-100vw);}
+                .welcome.clicked-true span.right {transform: translateX(100vw);}
+
                 
-				#notice {
+				.notice {
                     text-align: center;
                     transition: opacity .25s ease-out;
                 }
 
-                #welcome.clicked-true span {transition: .75s cubic-bezier(1, 0, 0.6, 1);}
-                #welcome.clicked-true span.left {transform: translateX(-100vw);}
-                #welcome.clicked-true span.right {transform: translateX(100vw);}
-
-                #landing.nopacity-true,
-		        #notice.nopacity-true {opacity: 0;}
+                .nopacity-true {opacity: 0;}
 			</style>
 
 		
             <template is="dom-if" if="[[!hidden]]">
-                <aside id="splash" class$="nopacity-[[nopacity]]" on-click="open">
-                    <div id="welcome" class$="clicked-[[nopacity]]">
+                <aside class$="splash nopacity-[[nopacity]]" on-click="open">
+                    <div class$="welcome clicked-[[nopacity]]">
                         <span class="left">[An</span>
                         <span class="right">da]</span>
                     </div>
-                    <span id="notice">Loading ...</span>
+                    <span class$="notice nopacity-[[nopacity]]">Loading ...</span>
                 </aside>
             </template>
 		`;

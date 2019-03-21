@@ -7,8 +7,14 @@ import './elements/website-main.js';
 class AndarothWebsite extends PolymerElement {
 	static get template () {
 		return html`
-			<welcome-screen on-power="boot" active="[[powerOn]]"></welcome-screen>
-			<website-main on-loaded="boot" active="[[powerOn]]"></main-page>
+            <welcome-screen 
+                on-power="boot" 
+                active="[[powerOn]]"
+            ></welcome-screen>
+            <website-main 
+                on-loaded="boot" 
+                active="[[powerOn]]"
+            ></main-page>
 		`;
 	}
   
