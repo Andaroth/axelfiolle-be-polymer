@@ -98,10 +98,7 @@ class WebsiteMain extends PolymerElement {
         ]
     }
 
-    display(active) {
-        // console.log('display()',active)
-    }
-
+    /* private */
     _elementIsReady(e) {
         if (e && e.target && e.target.localName && e.detail && e.detail.done) {
             this.push('componentsLoaded',e.target.localName)
@@ -117,6 +114,11 @@ class WebsiteMain extends PolymerElement {
     _loadedComplete(siteLoaded) {
         // console.log('_isLoadedComplete ?',siteLoaded)
         if (siteLoaded) this.dispatchEvent(new CustomEvent('loaded',{detail:{},bubbles:true,composed:true}))
+    }
+
+    /* public */
+    display(active) {
+        // console.log('display()',active)
     }
 
     doRoute(e) {
