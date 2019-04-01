@@ -12,11 +12,11 @@ class WebsiteMain extends PolymerElement {
 
                 .hidden {display: none;}
             </style>
-            <main id="site" class$="show-website-[[active]]">
+            <main id="site" class$="show-website-[[opened]]">
                 <h1 id="title" class="hidden">Axel Fiolle</h1>
                 
                 <landing-element 
-                    started-up="[[active]]" 
+                    started-up="[[opened]]" 
                     on-ready="_elementIsReady"
                     on-router-call="doRoute"
                 ></landing-element>
@@ -66,7 +66,7 @@ class WebsiteMain extends PolymerElement {
   
     static get properties () {
         return {
-            active: {
+            opened: {
                 type: Boolean,
                 value: false
             },
@@ -92,7 +92,7 @@ class WebsiteMain extends PolymerElement {
 
     static get observers () {
         return [
-            'display(active)',
+            'display(opened)',
             '_isLoadedComplete(componentsLoaded)',
             '_loadedComplete(siteLoaded)'
         ]
@@ -117,8 +117,8 @@ class WebsiteMain extends PolymerElement {
     }
 
     /* public */
-    display(active) {
-        // console.log('display()',active)
+    display(opened) {
+        // console.log('display()',opened)
     }
 
     doRoute(e) {

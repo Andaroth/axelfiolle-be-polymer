@@ -6,6 +6,7 @@
   "author": "The Polymer Project Authors",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@polymer/paper-button": "^3.0.1",
     "@polymer/polymer": "latest",
     "@webcomponents/webcomponentsjs": "latest"
   }

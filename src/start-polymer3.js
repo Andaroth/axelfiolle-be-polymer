@@ -13,7 +13,7 @@ class AndarothWebsite extends PolymerElement {
             ></welcome-screen>
             <website-main 
                 on-loaded="boot" 
-                active="[[powerOn]]"
+                opened="[[powerOn]]"
             ></main-page>
 		`;
 	}
