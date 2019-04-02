@@ -7,26 +7,20 @@ class WebsiteMain extends PolymerElement {
     static get template () {
         return html`
             <style>
-                aside.curtain {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    height: 100vh;
-                    width: 100vw;
-                    background: white;
-                    transition: 1s ease-out;
-                }
-                aside.curtain.opened-true {
-                    height: 0;
-                }
                 #site {display: none;}
                 #site.show-website-true {display: initial;}
+                
+                #title {
+                    position: fixed;
+                    margin: 0;
+                    bottom: 8px;
+                    right: 16px;
+                }
 
                 .hidden {display: none;}
             </style>
             <main id="site" class$="show-website-[[opened]]">
-                <aside class$="curtain opened-[[opened]]"></aside>
-                <h1 id="title" class="hidden">Axel Fiolle</h1>
+                <h1 id="title">Axel Fiolle</h1>
                 
                 <landing-element 
                     started-up="[[opened]]" 
@@ -59,7 +53,7 @@ class WebsiteMain extends PolymerElement {
                         <h3>I shoot pictures</h3>
                     </article>
                     <article id="blog">
-                        <h3>I make essays</h3>
+                        <h3>I'm a writer</h3>
                     </article>
                     </div>
                 </section>

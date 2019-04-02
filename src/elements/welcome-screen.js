@@ -23,13 +23,7 @@ class WelcomeScreen extends PolymerElement {
 					transition: .7s ease-out;
 					cursor: pointer;
 					
-					background-size: 100% 200%;
-                    background-image: linear-gradient(to bottom, black 50%, white 50%);
-					
 					overflow: hidden;
-                }
-                .splash.clicked-true {
-                	background-position-y: 100%;
                 }
                 
                 span {
@@ -94,8 +88,11 @@ class WelcomeScreen extends PolymerElement {
 	open() {
 		this.set('nopacity',true)
 		this.set('isClicked',true)
-		setTimeout(()=>this.set('hidden',true),750)
-		this.dispatchEvent(new CustomEvent('power',{detail:{},bubbles:true,composed:true}))
+		setTimeout(()=>{
+			this.set('hidden',true)
+            this.dispatchEvent(new CustomEvent('power',{detail:{},bubbles:true,composed:true}))
+        },1000)
+
 	}
 }
 

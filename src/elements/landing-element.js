@@ -7,6 +7,18 @@ class LandingElement extends PolymerElement {
     static get template () {
         return html`
             <style>
+                aside.curtain {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    height: 100vh;
+                    width: 100vw;
+                    background: white;
+                    transition: 1s ease-out;
+                }
+                aside.curtain.opened-true {
+                    height: 0;
+                }
                 .landing {
                     display: flex;
                     flex-direction: column;
@@ -64,6 +76,7 @@ class LandingElement extends PolymerElement {
                 nav > paper-button:after {content: ".";}
             </style>
 
+            <aside class$="curtain opened-[[startedUp]]"></aside>
             <section class$="landing active-[[startedUp]]">
                 <h2 on-click="_goToAnchor">[[shownSkill]]</h2>
                 
