@@ -5,51 +5,71 @@ class WelcomeScreen extends PolymerElement {
 	static get template () {
 		return html`
 			<style>
+				@keyframes left-span-anim {
+					from {transform: translateY(-100vh);}
+					to {transform: translateY(0);}
+				}
+				@keyframes right-span-anim {
+					from {transform: translateY(100vh);}
+					to {transform: translateY(0);}
+				}
+			
 				.splash {
-                    display: flex;
-                    flex-direction: column;
-                    position: fixed;
-                    top: 50vh;
-                    left: 50vw;
-                    color: #FFF;
-                    opacity: 1;
-                    justify-content: space-around;
-					transform: translate(-50%,-50%);
-					transition: opacity .7s ease-out;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					height: 100vh;
+					width: 100vw;
+					transition: .7s ease-out;
+					cursor: pointer;
+					
+					background-size: 100% 200%;
+                    background-image: linear-gradient(to bottom, black 50%, white 50%);
+					
+					overflow: hidden;
+                }
+                .splash.clicked-true {
+                	background-position-y: 100%;
                 }
                 
-				.welcome {
-                    display: flex;
-                    flex-direction: row;
-                    margin: 0 auto;
-                    cursor: pointer;
-                    
-                    text-align: center;
-                    font-family: "Times New Roman", serif;
-                    font-size: 25vw;
+                span {
+                	position:fixed;
+                	font-size: 25vw;
                 }
-                .welcome.clicked-true span {transition: .75s cubic-bezier(1, 0, 0.6, 1);}
-                .welcome.clicked-true span.left {transform: translateX(-100vw);}
-                .welcome.clicked-true span.right {transform: translateX(100vw);}
-
+                span.left {
+                	right: 50vw;
+                	animation: left-span-anim 2s;
+                }
+                span.right {
+                	left: 50vw;
+                	animation: right-span-anim 2s;
+                }
+                aside.cut {
+                	position:fixed;
+                	top: -500vh;
+                	left: 50vw;
+                	height: 500vh;
+                	width:4px;
+                	background: white;
+                	transform: translateX(-50%);
+                	transition: .75s ease-in;
+                }
+                aside.cut.clicked-true {top: 500vh;}
                 
-				.notice {
-                    text-align: center;
-                    transition: opacity .25s ease-out;
-                }
-
+                .clicked-true span {transition: .75s cubic-bezier(1, 0, 0.6, 1);}
+                .clicked-true span.left {transform: translateX(-100vw);}
+                .clicked-true span.right {transform: translateX(100vw);}
+                
                 .nopacity-true {opacity: 0;}
 			</style>
 
 		
             <template is="dom-if" if="[[!hidden]]">
-                <aside class$="splash nopacity-[[nopacity]]" on-click="open">
-                    <div class$="welcome clicked-[[nopacity]]">
-                        <span class="left">[An</span>
-                        <span class="right">da]</span>
-                    </div>
-                    <span class$="notice nopacity-[[nopacity]]">Loading ...</span>
-                </aside>
+                <div class$="splash clicked-[[isClicked]]" on-click="open">
+					<span class="left">[An</span>
+					<span class="right">da]</span>
+                </div>
+				<aside class$="cut clicked-[[isClicked]]"></aside>
             </template>
 		`;
 	}
@@ -63,14 +83,19 @@ class WelcomeScreen extends PolymerElement {
 			hidden: {
 				type: Boolean,
 				value: false
+			},
+			isClicked: {
+				type: Boolean,
+				value: false
 			}
         };
 	}
 
 	open() {
 		this.set('nopacity',true)
+		this.set('isClicked',true)
+		setTimeout(()=>this.set('hidden',true),750)
 		this.dispatchEvent(new CustomEvent('power',{detail:{},bubbles:true,composed:true}))
-		setTimeout(()=>this.set('hidden',true),700)
 	}
 }
 

@@ -1,6 +1,8 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/polymer/lib/elements/dom-if.js';
 
+// import '../node_modules/analytics-element/analytics-element.html';
+
 import './elements/welcome-screen.js';
 import './elements/website-main.js';
 
@@ -15,6 +17,7 @@ class AndarothWebsite extends PolymerElement {
                 on-loaded="boot" 
                 opened="[[powerOn]]"
             ></main-page>
+            <!--	<element-analytics id="UA-70463285-1"></element-analytics>-->
 		`;
 	}
   

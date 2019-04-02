@@ -7,12 +7,25 @@ class WebsiteMain extends PolymerElement {
     static get template () {
         return html`
             <style>
+                aside.curtain {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    height: 100vh;
+                    width: 100vw;
+                    background: white;
+                    transition: 1s ease-out;
+                }
+                aside.curtain.opened-true {
+                    height: 0;
+                }
                 #site {display: none;}
                 #site.show-website-true {display: initial;}
 
                 .hidden {display: none;}
             </style>
             <main id="site" class$="show-website-[[opened]]">
+                <aside class$="curtain opened-[[opened]]"></aside>
                 <h1 id="title" class="hidden">Axel Fiolle</h1>
                 
                 <landing-element 

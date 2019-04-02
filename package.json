@@ -8,6 +8,7 @@
   "dependencies": {
     "@polymer/paper-button": "^3.0.1",
     "@polymer/polymer": "latest",
-    "@webcomponents/webcomponentsjs": "latest"
+    "@webcomponents/webcomponentsjs": "latest",
+    "analytics-element": "^1.1.3"
   }
 }
