@@ -1,6 +1,9 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/polymer/lib/elements/dom-if.js';
 
+import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-icons/iron-icons.js';
+
 import '@polymer/paper-button/paper-button.js';
 
 class LandingElement extends PolymerElement {
@@ -13,7 +16,8 @@ class LandingElement extends PolymerElement {
                     left: 0;
                     height: 100vh;
                     width: 100vw;
-                    background: white;
+                    background: black;
+                    z-index: 1;
                     transition: 1s ease-out;
                 }
                 aside.curtain.opened-true {
@@ -81,9 +85,8 @@ class LandingElement extends PolymerElement {
                 <h2 on-click="_goToAnchor">[[shownSkill]]</h2>
                 
                 <div class="row">
-                    <aside class="grow-2"></aside>
                     <nav>
-                        <paper-button>Lorem ipsum</paper-button>
+                        <paper-button><iron-icon icon="perm-identity"></iron-icon> Lorem ipsum</paper-button>
                         <paper-button>dolor sit amet</paper-button>
                         <paper-button>Lorem ipsum dolor amet</paper-button>
                     </nav>

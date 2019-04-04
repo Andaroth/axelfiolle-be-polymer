@@ -54,14 +54,23 @@ class WelcomeScreen extends PolymerElement {
                 .clicked-true span.left {transform: translateX(-100vw);}
                 .clicked-true span.right {transform: translateX(100vw);}
                 
+                p.cookie {
+                	position: fixed;
+                	bottom: 20vh;
+                	width: 100%;
+                	text-align: center;
+                	font-size: 2em;
+                }
+                
                 .nopacity-true {opacity: 0;}
 			</style>
 
 		
             <template is="dom-if" if="[[!hidden]]">
                 <div class$="splash clicked-[[isClicked]]" on-click="open">
-					<span class="left">[An</span>
-					<span class="right">da]</span>
+					<span class="left">&lt;An</span>
+					<span class="right">da&gt;</span>
+					<p class$="cookie nopacity-[[!isFirstAnimOver]]">This website uses cookies. Please accept my cookies &#127850;</p>
                 </div>
 				<aside class$="cut clicked-[[isClicked]]"></aside>
             </template>
@@ -70,6 +79,9 @@ class WelcomeScreen extends PolymerElement {
 	
 	static get properties () {
 		return {
+			skip: {
+                type: Boolean
+			},
 			nopacity: {
 				type: Boolean,
 				value: false
@@ -81,18 +93,34 @@ class WelcomeScreen extends PolymerElement {
 			isClicked: {
 				type: Boolean,
 				value: false
+			},
+			isFirstAnimOver: {
+				type: Boolean,
+				value: false
 			}
         };
 	}
 
-	open() {
-		this.set('nopacity',true)
-		this.set('isClicked',true)
-		setTimeout(()=>{
-			this.set('hidden',true)
-            this.dispatchEvent(new CustomEvent('power',{detail:{},bubbles:true,composed:true}))
-        },1000)
+	ready() {
+		super.ready()
+        setTimeout(()=>this.set('isFirstAnimOver',true),2000)
+	}
 
+	open() {
+		if (this.isFirstAnimOver) {
+			localStorage.setItem('cookies-agreement',true)
+			this.set('nopacity',true)
+			this.set('isClicked',true)
+			setTimeout(()=>{
+				this.set('hidden',true)
+				this.dispatchEvent(new CustomEvent('power',{detail:{},bubbles:true,composed:true}))
+			},1000)
+		}
+	}
+
+	skip() {
+        this.set('hidden',true)
+        this.dispatchEvent(new CustomEvent('power',{detail:{},bubbles:true,composed:true}))
 	}
 }
 

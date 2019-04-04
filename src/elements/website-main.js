@@ -2,6 +2,9 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/polymer/lib/elements/dom-if.js';
 
 import './landing-element.js';
+import './portfolio-element.js';
+
+import _ from 'lodash/lodash';
 
 class WebsiteMain extends PolymerElement {
     static get template () {
@@ -37,26 +40,9 @@ class WebsiteMain extends PolymerElement {
                     <p>My natural taste of unknown and my initiative made me discover a lot of wonders, I'd be glad to help you getting online and expands all over the Internet !</p>
                 </section>
 
-                <section id="portfolio">
-                    <h2>Portfolio</h2>
-                    <div class="skills">
-                    <article id="dev">
-                        <h3>I write code</h3>
-                    </article>
-                    <article id="design">
-                        <h3>I do design</h3>
-                    </article>
-                    <article id="illu">
-                        <h3>I can draw</h3>
-                    </article>
-                    <article id="photo">
-                        <h3>I shoot pictures</h3>
-                    </article>
-                    <article id="blog">
-                        <h3>I'm a writer</h3>
-                    </article>
-                    </div>
-                </section>
+                <portfolio-element
+                    on-ready="_elementIsReady"
+                ></portfolio-element>
 
                 <section id="contact">
                     <h2>Contact</h2>
@@ -115,7 +101,7 @@ class WebsiteMain extends PolymerElement {
     }
 
     _isLoadedComplete() {
-        this.set('siteLoaded',this.equalArrays(this.componentsLoaded,this.componentsToLoad))
+        this.set('siteLoaded', _.isEqual(this.componentsLoaded,this.componentsToLoad))
     }
 
     _loadedComplete(siteLoaded) {
@@ -131,8 +117,8 @@ class WebsiteMain extends PolymerElement {
     doRoute(e) {
         if (!(e && e.detail)) return
 
-        const page = e.detail.page || false
-        const anchor = e.detail.anchor || false
+        const page = e.detail.page || null
+        const anchor = e.detail.anchor || null
 
         if (page && !anchor) return // TODO this.goTo(this.root.getElementById(page)) 
         else if (anchor && !page) return // TODO this.scrollTo(this.root.getElementById(anchor)) 

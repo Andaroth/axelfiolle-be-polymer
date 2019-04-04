@@ -9,9 +9,9 @@ import './elements/website-main.js';
 class AndarothWebsite extends PolymerElement {
 	static get template () {
 		return html`
-            <welcome-screen 
+            <welcome-screen id="splash-screen"
                 on-power="boot" 
-                active="[[powerOn]]"
+                skip="[[skipCookie]]"
             ></welcome-screen>
             <website-main 
                 on-loaded="boot" 
@@ -28,6 +28,15 @@ class AndarothWebsite extends PolymerElement {
 				value: false
       		}
     	};
+	}
+
+	ready() {
+		super.ready()
+		const cookiesAgreement = localStorage.getItem('cookies-agreement') || 'false'
+		
+		if (cookiesAgreement === 'true') {
+			this.$['splash-screen'].skip()
+		}
 	}
 
 	boot() {
