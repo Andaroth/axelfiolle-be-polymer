@@ -15,11 +15,9 @@
     "@polymer/paper-card": "^3.0.1",
     "@polymer/polymer": "latest",
     "@webcomponents/webcomponentsjs": "latest",
-    "analytics-element": "^1.1.3",
-    "lodash": "^4.17.11"
+    "analytics-element": "^1.1.3"
   },
   "devDependencies": {
-    "lodash-webpack-plugin": "^0.11.5",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1"

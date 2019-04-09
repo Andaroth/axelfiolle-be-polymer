@@ -56,10 +56,16 @@ class WelcomeScreen extends PolymerElement {
                 
                 p.cookie {
                 	position: fixed;
+                	display: block;
                 	bottom: 20vh;
                 	width: 100%;
                 	text-align: center;
                 	font-size: 2em;
+                	opacity: 0;
+                	transition: .5s ease;
+                }
+                p.cookie.display {
+                	opacity: 1;
                 }
                 
                 .nopacity-true {opacity: 0;}
@@ -67,10 +73,10 @@ class WelcomeScreen extends PolymerElement {
 
 		
             <template is="dom-if" if="[[!hidden]]">
-                <div class$="splash clicked-[[isClicked]]" on-click="open">
+                <div id="splash" class$="splash clicked-[[isClicked]]" on-click="open">
 					<span class="left">&lt;An</span>
 					<span class="right">da&gt;</span>
-					<p class$="cookie nopacity-[[!isFirstAnimOver]]">This website uses cookies. Please accept my cookies &#127850;</p>
+					<p id="cookie-line" class="cookie">This website uses cookies. Please click to accept cookies &#127850;</p>
                 </div>
 				<aside class$="cut clicked-[[isClicked]]"></aside>
             </template>
@@ -103,19 +109,50 @@ class WelcomeScreen extends PolymerElement {
 
 	ready() {
 		super.ready()
-        setTimeout(()=>this.set('isFirstAnimOver',true),2000)
+        setTimeout(()=>{
+            this.set('isFirstAnimOver',true)
+
+            this.showCookie()
+        },2000)
 	}
 
 	open() {
 		if (this.isFirstAnimOver) {
-			localStorage.setItem('cookies-agreement',true)
-			this.set('nopacity',true)
-			this.set('isClicked',true)
+			// localStorage.setItem('cookies-agreement',true)
 			setTimeout(()=>{
 				this.set('hidden',true)
 				this.dispatchEvent(new CustomEvent('power',{detail:{},bubbles:true,composed:true}))
-			},1000)
+			},2000)
 		}
+	}
+
+	showCookie() {
+		const cookie_txt = this.root.querySelector('#cookie-line') || null
+		if (cookie_txt) {
+            this.set('nopacity', true)
+
+			setTimeout(() => {
+				cookie_txt.classList.add('display')
+			}, 600) // .6s
+        } else {
+			console.warn('unfound element #cookie_txt')
+		}
+	}
+
+	afterClickAnim() {
+		const splash = this.root.querySelector('#splash') || null
+        const cookie_txt = this.root.querySelector('#cookie-line') || null
+
+		if (splash && cookie_txt) {
+            setTimeout((A) => {
+                cookie_txt.classList.remove('display')
+			setTimeout((B)=>{
+				splash.classList.add('after-click')
+			},2000) // B 2s
+            }, 600) // A .6s
+		} else {
+            console.warn('unfound element #splash or #cookie_txt', splash,cookie_txt)
+        }
 	}
 
 	skip() {

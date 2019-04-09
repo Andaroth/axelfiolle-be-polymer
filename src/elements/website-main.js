@@ -4,7 +4,7 @@ import '@polymer/polymer/lib/elements/dom-if.js';
 import './landing-element.js';
 import './portfolio-element.js';
 
-import _ from 'lodash/lodash';
+// import _ from 'lodash/lodash';
 
 class WebsiteMain extends PolymerElement {
     static get template () {
@@ -101,7 +101,7 @@ class WebsiteMain extends PolymerElement {
     }
 
     _isLoadedComplete() {
-        this.set('siteLoaded', _.isEqual(this.componentsLoaded,this.componentsToLoad))
+        this.set('siteLoaded', this.equalArrays(this.componentsLoaded,this.componentsToLoad))
     }
 
     _loadedComplete(siteLoaded) {
